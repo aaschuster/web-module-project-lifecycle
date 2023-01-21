@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import axios from "axios";
 
 import Form from "./Form";
 import Todo from "./Todo";
@@ -13,8 +14,15 @@ export default class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      inputVal: ""
+      inputVal: "",
+      todos: []
     }
+  }
+
+  componentDidMount() {
+    axios.get("http://localhost:9000/api/todos")
+      .then(res => this.setState({todos: res.data.data}))
+      .catch(err => console.error(err));
   }
 
   render() {
@@ -25,6 +33,7 @@ export default class App extends React.Component {
     
     const onSubmit=(e)=> {
       e.preventDefault();
+
       this.setState({inputVal: ""});
     }
 
