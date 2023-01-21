@@ -5,9 +5,7 @@ import Form from "./Form";
 import Todo from "./Todo";
 import TodoList from "./TodoList";
 
-const URL = 'http://localhost:9000/api/todos'
-
-
+const URL = 'http://localhost:9000/api/todos' 
 
 export default class App extends React.Component {
 
@@ -47,7 +45,12 @@ export default class App extends React.Component {
 
     const liClick = (id) => {
       axios.patch(`${URL}/${id}`)
-        .then(res => this.setTodos())
+        .then(res => {
+          this.setState({todos: this.state.todos.map(todo => {
+            if(todo.id===id) todo.completed = !todo.completed;
+            return todo;
+          })})
+        })
         .catch(err => console.error(err));
     }
 
