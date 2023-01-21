@@ -42,7 +42,7 @@ export default class App extends React.Component {
     return(
       <div>
         <Form inputVal={this.state.inputVal} onChange={onChange} onSubmit={onSubmit}/>
-        <TodoList />
+        <TodoList todos={this.state.todos}/>
       </div>
     )
   }
