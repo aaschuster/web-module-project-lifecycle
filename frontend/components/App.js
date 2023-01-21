@@ -33,7 +33,9 @@ export default class App extends React.Component {
     
     const onSubmit=(e)=> {
       e.preventDefault();
-
+      axios.post("http://localhost:9000/api/todos", ({name: this.state.inputVal}))
+        .then(res => this.setState({todos: [...this.state.todos, res.data.data]}))
+        .catch(err => console.error(err));
       this.setState({inputVal: ""});
     }
 
