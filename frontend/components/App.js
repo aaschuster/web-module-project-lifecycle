@@ -16,7 +16,8 @@ export default class App extends React.Component {
 
     this.state = {
       inputVal: "",
-      todos: []
+      todos: [],
+      hideCompleted: false
     }
   }
 
@@ -50,10 +51,19 @@ export default class App extends React.Component {
         .catch(err => console.error(err));
     }
 
+    const clear = () => {
+      this.setState({hideCompleted: true});
+    }
+
     return(
       <div>
-        <Form inputVal={this.state.inputVal} onChange={onChange} onSubmit={onSubmit}/>
-        <TodoList todos={this.state.todos} liClick={liClick}/>
+        <Form 
+          inputVal={this.state.inputVal} 
+          onChange={onChange} 
+          onSubmit={onSubmit} 
+          clear={clear}
+        />
+        <TodoList todos={this.state.todos} liClick={liClick} hideCompleted={this.state.hideCompleted}/>
       </div>
     )
   }
