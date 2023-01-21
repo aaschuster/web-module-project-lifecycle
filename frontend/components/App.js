@@ -26,7 +26,7 @@ export default class App extends React.Component {
   }
 
   setTodos() {
-    axios.get("http://localhost:9000/api/todos")
+    axios.get(URL)
       .then(res => this.setState({todos: res.data.data}))
       .catch(err => console.error(err));
   }
@@ -39,14 +39,14 @@ export default class App extends React.Component {
     
     const onSubmit=(e)=> {
       e.preventDefault();
-      axios.post("http://localhost:9000/api/todos", ({name: this.state.inputVal}))
+      axios.post(URL, ({name: this.state.inputVal}))
         .then(res => this.setState({todos: [...this.state.todos, res.data.data]}))
         .catch(err => console.error(err));
       this.setState({inputVal: ""});
     }
 
     const liClick = (id) => {
-      axios.patch(`http://localhost:9000/api/todos/${id}`)
+      axios.patch(`${URL}/${id}`)
         .then(res => this.setTodos())
         .catch(err => console.error(err));
     }
