@@ -10,7 +10,13 @@ export default class TodoList extends React.Component {
     return (
       <div>
         {this.props.todos.map( todo => (
-            <Todo todo={todo.name} key={todo.id}/>
+            <div 
+              onClick={() => this.props.liClick(todo.id)} 
+              key={todo.id} 
+              className={todo.completed ? "completed" : ""}
+            >
+              <Todo todo={todo.name}/>
+            </div>
         ))}
       </div>
     )

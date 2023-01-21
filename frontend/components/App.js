@@ -13,6 +13,7 @@ export default class App extends React.Component {
 
   constructor() {
     super();
+
     this.state = {
       inputVal: "",
       todos: []
@@ -20,6 +21,10 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
+    this.setTodos();
+  }
+
+  setTodos() {
     axios.get("http://localhost:9000/api/todos")
       .then(res => this.setState({todos: res.data.data}))
       .catch(err => console.error(err));
@@ -39,10 +44,16 @@ export default class App extends React.Component {
       this.setState({inputVal: ""});
     }
 
+    const liClick = (id) => {
+      axios.patch(`http://localhost:9000/api/todos/${id}`)
+        .then(res => this.setTodos())
+        .catch(err => console.error(err));
+    }
+
     return(
       <div>
         <Form inputVal={this.state.inputVal} onChange={onChange} onSubmit={onSubmit}/>
-        <TodoList todos={this.state.todos}/>
+        <TodoList todos={this.state.todos} liClick={liClick}/>
       </div>
     )
   }
